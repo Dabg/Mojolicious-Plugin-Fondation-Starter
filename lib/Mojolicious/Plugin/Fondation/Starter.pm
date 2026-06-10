@@ -35,16 +35,18 @@ composition: each plugin is a self-contained brick. You can freely:
 
 =over
 
-=item * Remove C<Fondation::I18N> if you don't need translation
-
-=item * Replace C<Layout::Bootstrap> with your own layout plugin
-
 =item * Add your own plugins to the dependencies list
 
 =item * Override any plugin config directly in C<myapp.pl>. For example,
-to use PostgreSQL instead of SQLite:
+to use PostgreSQL instead of SQLite: (see CONFIGURATION)
+
+=item * Skip Starter entirely and declare your own subset of plugins
 
 =back
+
+Because Fondation merges arrays by concatenation, Starter's plugins are always
+present. To use a different set, declare them manually instead of including
+C<Fondation::Starter>. See L</CONFIGURATION> for details.
 
   plugin 'Fondation' => {
       dependencies => [
@@ -96,10 +98,6 @@ The following dependencies are loaded automatically:
 
 =back
 
-To override a dependency, declare it before C<Fondation::Starter> in the
-C<dependencies> array. The config cascade (direct > app config > defaults)
-resolves duplicates, so your version takes priority.
-
 =head1 ORCHESTRATION
 
 Fondation core provides three commands that iterate over all loaded plugins:
@@ -129,16 +127,13 @@ plugin contract.
 
 =head1 CONFIGURATION
 
-Config can be set directly in C<myapp.pl>:
+Because Fondation merges arrays by concatenation, you can B<add> plugins to
+Starter's list but you cannot remove them. To add extra plugins:
 
   plugin 'Fondation' => {
       dependencies => [
           { 'Fondation::Starter' => {
-              dependencies => [
-                  # Override the entire dependency list
-                  'Fondation::User',
-                  'Mojolicious::Plugin::Fondation::Asset',
-              ],
+              dependencies => ['MyPlugin'],   # added to the default list
           }},
       ],
   };
@@ -148,11 +143,24 @@ Or in a separate C<myapp.conf> file (Mojolicious auto-loads it if present):
   # myapp.conf
   {
       'Fondation::Starter' => {
-          dependencies => ['Fondation::User'],
+          dependencies => ['MyPlugin'],
       },
   }
 
 Both are equivalent — config passed directly in C<myapp.pl> takes priority.
+
+If you need a different subset of plugins, do not use C<Fondation::Starter>.
+Declare your own list instead:
+
+  plugin 'Fondation' => {
+      dependencies => [
+          'Fondation::User',
+          'Mojolicious::Plugin::Fondation::Asset',
+          'MyPlugin',
+      ],
+  };
+
+Starter is a convenience, not a straitjacket.
 
 =cut
 
