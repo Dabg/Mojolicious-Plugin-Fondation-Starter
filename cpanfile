@@ -12,6 +12,7 @@ requires 'Mojolicious::Plugin::Fondation'    => '0.01';
 requires 'Mojolicious::Plugin::Fondation::Model::DBIx::Async' => '0.01';
 requires 'Mojolicious::Plugin::Fondation::MigrationDBIx'      => '0.01';
 requires 'Mojolicious::Plugin::Fondation::User'               => '0.01';
+requires 'Mojolicious::Plugin::Fondation::Auth'               => '0.01';
 requires 'Mojolicious::Plugin::Fondation::Layout::Bootstrap'  => '0.01';
 requires 'Mojolicious::Plugin::Fondation::User::UI::Bootstrap' => '0.01';
 requires 'Mojolicious::Plugin::Fondation::Asset'              => '0.01';

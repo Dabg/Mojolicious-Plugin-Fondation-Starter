@@ -40,16 +40,22 @@ subtest 'Default dependencies' => sub {
         }
     }
 
-    ok((grep { $_ eq 'Fondation::Model::DBIx::Async' } @names),    'DBIx::Async in dependencies');
-    ok((grep { $_ eq 'Fondation::MigrationDBIx' } @names),         'MigrationDBIx in dependencies');
-    ok((grep { $_ eq 'Fondation::User' } @names),                  'User in dependencies');
-    ok((grep { $_ eq 'Mojolicious::Plugin::Fondation::Layout::Bootstrap' } @names),
-        'Layout::Bootstrap in dependencies');
-    ok((grep { $_ eq 'Mojolicious::Plugin::Fondation::User::UI::Bootstrap' } @names),
-        'User::UI::Bootstrap in dependencies');
-    ok((grep { $_ eq 'Mojolicious::Plugin::Fondation::Asset' } @names), 'Asset in dependencies');
-    ok((grep { $_ eq 'Mojolicious::Plugin::Fondation::OpenAPI' } @names), 'OpenAPI in dependencies');
-    ok((grep { $_ eq 'Mojolicious::Plugin::Fondation::I18N' } @names), 'I18N in dependencies');
+    # Helper: match short or long name (Fondation resolves both)
+    sub _has_dep {
+        my ($names, $short) = @_;
+        my $long = "Mojolicious::Plugin::$short";
+        return (grep { $_ eq $short || $_ eq $long } @$names) ? 1 : 0;
+    }
+
+    ok(_has_dep(\@names, 'Fondation::Model::DBIx::Async'),       'DBIx::Async in dependencies');
+    ok(_has_dep(\@names, 'Fondation::MigrationDBIx'),            'MigrationDBIx in dependencies');
+    ok(_has_dep(\@names, 'Fondation::User'),                     'User in dependencies');
+    ok(_has_dep(\@names, 'Fondation::Auth'),                     'Auth in dependencies');
+    ok(_has_dep(\@names, 'Fondation::Layout::Bootstrap'),        'Layout::Bootstrap in dependencies');
+    ok(_has_dep(\@names, 'Fondation::User::UI::Bootstrap'),      'User::UI::Bootstrap in dependencies');
+    ok(_has_dep(\@names, 'Fondation::Asset'),                    'Asset in dependencies');
+    ok(_has_dep(\@names, 'Fondation::OpenAPI'),                  'OpenAPI in dependencies');
+    ok(_has_dep(\@names, 'Fondation::I18N'),                     'I18N in dependencies');
 };
 
 done_testing;

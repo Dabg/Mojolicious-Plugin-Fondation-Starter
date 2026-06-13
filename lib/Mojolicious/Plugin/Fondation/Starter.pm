@@ -185,7 +185,7 @@ sub fondation_meta {
                 'Mojolicious::Plugin::Fondation::Layout::Bootstrap',
                 'Mojolicious::Plugin::Fondation::User::UI::Bootstrap',
 
-                'Fondation::Auth',
+                'Mojolicious::Plugin::Fondation::Auth',
                 'Mojolicious::Plugin::Fondation::Asset',
                 'Mojolicious::Plugin::Fondation::I18N',
 
