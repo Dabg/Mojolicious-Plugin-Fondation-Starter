@@ -178,14 +178,14 @@ sub fondation_meta {
                         },
                     ],
                 }},
+                'Fondation::MigrationDBIx',
+                'Mojolicious::Plugin::Fondation::OpenAPI',
 
                 # Before Auth to overwrite template login.
                 'Mojolicious::Plugin::Fondation::Layout::Bootstrap',
                 'Mojolicious::Plugin::Fondation::User::UI::Bootstrap',
 
-                'Fondation::MigrationDBIx',
                 'Fondation::Auth',
-                'Mojolicious::Plugin::Fondation::OpenAPI',
                 'Mojolicious::Plugin::Fondation::Asset',
                 'Mojolicious::Plugin::Fondation::I18N',
 
