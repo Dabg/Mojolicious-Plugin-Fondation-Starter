@@ -5,7 +5,7 @@
 requires 'perl' => '5.026';
 
 # Runtime dependencies
-requires 'Mojolicious'                       => '9.00';
+requires 'Mojolicious'                       => '9.46';
 requires 'Mojolicious::Plugin::Fondation'    => '0.01';
 
 # All plugins bundled by Fondation::Starter defaults
