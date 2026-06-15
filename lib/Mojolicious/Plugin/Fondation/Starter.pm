@@ -185,6 +185,7 @@ sub fondation_meta {
                 'Mojolicious::Plugin::Fondation::I18N',
 
                 'Fondation::User',
+                'Fondation::Group',
                 'Fondation::Devel',
                 ],
         },
