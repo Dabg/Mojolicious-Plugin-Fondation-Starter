@@ -6,11 +6,6 @@ use Mojo::Base 'Mojolicious::Plugin', -signatures;
 
 our $VERSION = '0.01';
 
-=head1 NAME
-
-Mojolicious::Plugin::Fondation::Starter - Curated starter stack of Fondation plugins
-
-
 =head1 SYNOPSIS
 
   # myapp.pl
@@ -190,6 +185,7 @@ sub fondation_meta {
                 'Mojolicious::Plugin::Fondation::I18N',
 
                 'Fondation::User',
+                'Fondation::Devel',
                 ],
         },
     };
