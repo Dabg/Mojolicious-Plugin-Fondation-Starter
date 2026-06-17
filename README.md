@@ -64,10 +64,6 @@ the rest, add your own.
 **This plugin is experimental.** It's a step-by-step exploration of how
 Fondation plugins compose together. Things may change as the ecosystem evolves.
 
-# NAME
-
-Mojolicious::Plugin::Fondation::Starter - Curated starter stack of Fondation plugins
-
 # DEFAULT CONFIGURATION
 
 The following dependencies are loaded automatically:

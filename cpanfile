@@ -19,6 +19,7 @@ requires 'Mojolicious::Plugin::Fondation::Asset'              => '0.01';
 requires 'Mojolicious::Plugin::Fondation::OpenAPI'            => '0.01';
 requires 'Mojolicious::Plugin::Fondation::I18N'               => '0.01';
 requires 'Mojolicious::Plugin::Fondation::Devel'              => '0.01';
+requires 'Mojolicious::Plugin::Fondation::Group'              => '0.01';
 
 # Testing dependencies
 on test => sub {
