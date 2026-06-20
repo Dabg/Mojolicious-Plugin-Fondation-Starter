@@ -162,32 +162,37 @@ Starter is a convenience, not a straitjacket.
 
 sub fondation_meta {
     return {
-        defaults => {
-            dependencies => [
-                { 'Fondation::Model::DBIx::Async' => {
-                    backends => [
-                        main => {
-                            dsn          => 'dbi:SQLite:dbname=data/app.db',
-                            schema_class => 'MySchema',
-                            workers      => 2,
-                        },
-                    ],
-                }},
-                'Fondation::MigrationDBIx',
-                'Fondation::OpenAPI',
-
-                # Before Auth to overwrite template login.
-                'Fondation::Layout::Bootstrap',
-                'Fondation::User::UI::Bootstrap',
-
-                'Fondation::Auth',
-                'Fondation::Asset',
-                'Fondation::I18N',
-
-                'Fondation::User',
-                'Fondation::Group',
-                'Fondation::Devel',
+        dependencies => [
+            { 'Fondation::Model::DBIx::Async' => {
+                backends => [
+                    main => {
+                        dsn          => 'dbi:SQLite:dbname=data/app.db',
+                        schema_class => 'MySchema',
+                        workers      => 2,
+                        quote_char   => '"',
+                    },
                 ],
+            }},
+            'Fondation::MigrationDBIx',
+            'Fondation::OpenAPI',
+
+            # Before Auth to overwrite template login.
+            'Fondation::Layout::Bootstrap',
+            'Fondation::User::UI::Bootstrap',
+            'Fondation::Group::UI::Bootstrap',
+
+            'Fondation::Auth',
+            'Fondation::Asset',
+            'Fondation::I18N',
+
+            'Fondation::User',
+            'Fondation::Group',
+            'Fondation::Devel',
+        ],
+        defaults => {
+            fondation_clean => [
+                'data/app.db',
+            ],
         },
     };
 }

@@ -37,27 +37,33 @@ SCHEMA
 
     $app->plugin('Fondation' => {
         dependencies => [
-            { 'Fondation::Model::DBIx::Async' => {
-                backends => [
-                    main => {
-                        dsn          => "dbi:SQLite:dbname=$tempdir/app.db",
-                        schema_class => 'MySchema',
-                        workers      => 1,
-                    },
-                ],
-            }},
-            'Fondation::MigrationDBIx',
-            'Fondation::OpenAPI',
-            'Fondation::Layout::Bootstrap',
-            'Fondation::User::UI::Bootstrap',
-            'Fondation::Auth',
-            'Fondation::Asset',
-            'Fondation::I18N',
-            'Fondation::User',
-            'Fondation::Group',
-            'Fondation::Devel',
-        ],
-    });
+                             { 'Fondation::Model::DBIx::Async' => {
+                                   backends => [
+                                       main => {
+                                           dsn          => "dbi:SQLite:dbname=$tempdir/app.db",
+                                           schema_class => 'MySchema',
+                                           workers      => 1,
+                                           quote_char   => '"',
+                                       },
+                                    ],
+                               }},
+                             'Fondation::MigrationDBIx',
+                             'Fondation::OpenAPI',
+
+                             # Before Auth to overwrite template login.
+                             'Fondation::Layout::Bootstrap',
+                             'Fondation::User::UI::Bootstrap',
+                             'Fondation::Group::UI::Bootstrap',
+
+                             'Fondation::Auth',
+                             'Fondation::Asset',
+                             'Fondation::I18N',
+
+                             'Fondation::User',
+                             'Fondation::Group',
+                             'Fondation::Devel',
+                        ],
+                 });
 
     $app->commands->run('fondation', 'init');
 

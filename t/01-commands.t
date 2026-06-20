@@ -6,6 +6,7 @@ use Test::More;
 use FindBin;
 
 use lib "$FindBin::Bin/../lib";
+use lib "$FindBin::Bin/lib";
 
 use_ok 'Mojolicious::Plugin::Fondation::Starter';
 
@@ -18,8 +19,8 @@ subtest 'fondation_meta structure' => sub {
     isa_ok($meta, 'HASH');
 
     ok(exists $meta->{defaults},             'defaults key exists');
-    ok(exists $meta->{defaults}{dependencies}, 'dependencies key exists');
-    is(ref $meta->{defaults}{dependencies}, 'ARRAY', 'dependencies is an array');
+    ok(exists $meta->{dependencies}, 'dependencies key exists');
+    is(ref $meta->{dependencies}, 'ARRAY', 'dependencies is an array');
 };
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -28,7 +29,7 @@ subtest 'fondation_meta structure' => sub {
 
 subtest 'Default dependencies' => sub {
     my $meta = Mojolicious::Plugin::Fondation::Starter->fondation_meta;
-    my @deps = @{ $meta->{defaults}{dependencies} };
+    my @deps = @{ $meta->{dependencies} };
 
     my @names;
     for my $dep (@deps) {
