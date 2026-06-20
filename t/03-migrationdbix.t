@@ -15,10 +15,10 @@ subtest 'tables created' => sub {
     my $c      = $app->build_controller;
     my $schema = $c->schema;
     my @sources = sort $schema->sources;
-    ok((grep { $_ eq 'users' }      @sources), 'users table exists');
-    ok((grep { $_ eq 'groups' }     @sources), 'groups table exists');
-    ok((grep { $_ eq 'user_group' } @sources), 'user_group table exists');
-    is(scalar @sources, 3, 'exactly 3 tables');
+    ok((grep { $_ eq 'User' }      @sources), 'User source registered');
+    ok((grep { $_ eq 'Group' }     @sources), 'Group source registered');
+    ok((grep { $_ eq 'UserGroup' } @sources), 'UserGroup source registered');
+    is(scalar @sources, 3, 'exactly 3 sources');
 };
 
 # ─── Fixtures: users ─────────────────────────────────────────────────────────

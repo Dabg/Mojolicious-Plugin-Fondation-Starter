@@ -42,9 +42,9 @@ subtest 'schema and sources' => sub {
     isa_ok($schema, 'DBIx::Class::Async::Schema', 'schema returns Async::Schema');
 
     my @sources = sort $schema->sources;
-    ok((grep { $_ eq 'users' }      @sources), 'users source registered');
-    ok((grep { $_ eq 'groups' }     @sources), 'groups source registered');
-    ok((grep { $_ eq 'user_group' } @sources), 'user_group source registered');
+    ok((grep { $_ eq 'User' }      @sources), 'User source registered');
+    ok((grep { $_ eq 'Group' }     @sources), 'Group source registered');
+    ok((grep { $_ eq 'UserGroup' } @sources), 'UserGroup source registered');
 };
 
 # ─── model helper ─────────────────────────────────────────────────────────────
@@ -65,10 +65,10 @@ subtest 'model_config' => sub {
     my $c = $app->build_controller;
 
     my $ucfg = $c->model_config('user');
-    is($ucfg->{source}, 'users', 'user model source is users');
+    is($ucfg->{source}, 'User', 'user model source is User');
 
     my $gcfg = $c->model_config('group');
-    is($gcfg->{source}, 'groups', 'group model source is groups');
+    is($gcfg->{source}, 'Group', 'group model source is Group');
 };
 
 # ─── model_list helper ────────────────────────────────────────────────────────
