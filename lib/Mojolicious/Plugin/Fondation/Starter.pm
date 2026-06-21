@@ -180,6 +180,7 @@ sub fondation_meta {
             'Fondation::Layout::Bootstrap',
             'Fondation::User::UI::Bootstrap',
             'Fondation::Group::UI::Bootstrap',
+            'Fondation::Perm::UI::Bootstrap',
 
             'Fondation::Auth',
             'Fondation::Asset',
@@ -187,6 +188,7 @@ sub fondation_meta {
 
             'Fondation::User',
             'Fondation::Group',
+            'Fondation::Perm',
             'Fondation::Devel',
         ],
         defaults => {
