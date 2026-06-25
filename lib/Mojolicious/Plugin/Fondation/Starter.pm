@@ -182,7 +182,7 @@ sub fondation_meta {
             'Fondation::Group::UI::Bootstrap',
             'Fondation::Perm::UI::Bootstrap',
 
-            'Fondation::Auth',
+            'Fondation::Authorization',
             'Fondation::Asset',
             'Fondation::I18N',
 
@@ -190,7 +190,8 @@ sub fondation_meta {
             'Fondation::Group',
             'Fondation::Perm',
             'Fondation::Devel',
-        ],
+            'Fondation::Authorization',
+            ],
         defaults => {
             fondation_clean => [
                 'data/app.db',
