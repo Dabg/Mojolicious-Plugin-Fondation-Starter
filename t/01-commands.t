@@ -8,6 +8,8 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 use lib "$FindBin::Bin/lib";
 
+use StarterTestHelper qw(build_app);
+
 use_ok 'Mojolicious::Plugin::Fondation::Starter';
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -18,45 +20,40 @@ subtest 'fondation_meta structure' => sub {
     my $meta = Mojolicious::Plugin::Fondation::Starter->fondation_meta;
     isa_ok($meta, 'HASH');
 
-    ok(exists $meta->{defaults},             'defaults key exists');
+    ok(exists $meta->{defaults},     'defaults key exists');
     ok(exists $meta->{dependencies}, 'dependencies key exists');
     is(ref $meta->{dependencies}, 'ARRAY', 'dependencies is an array');
 };
 
 # ═══════════════════════════════════════════════════════════════════════════
-# 2. Default dependencies contain expected plugins
+# 2. Plugins actually loaded — registry check
 # ═══════════════════════════════════════════════════════════════════════════
 
-subtest 'Default dependencies' => sub {
-    my $meta = Mojolicious::Plugin::Fondation::Starter->fondation_meta;
-    my @deps = @{ $meta->{dependencies} };
+subtest 'Plugins loaded in registry' => sub {
+    my ($app, $t, $tempdir) = build_app();
 
-    my @names;
-    for my $dep (@deps) {
-        if (ref $dep eq 'HASH') {
-            push @names, (keys %$dep)[0];
-        }
-        else {
-            push @names, $dep;
-        }
-    }
+    my $registry = $app->fondation->registry;
 
-    # Helper: match short or long name (Fondation resolves both)
-    sub _has_dep {
-        my ($names, $short) = @_;
+    # Helper: plugin loaded if its long name is a key in the registry
+    my $_loaded = sub {
+        my ($short) = @_;
         my $long = "Mojolicious::Plugin::$short";
-        return (grep { $_ eq $short || $_ eq $long } @$names) ? 1 : 0;
-    }
+        return exists $registry->{$long};
+    };
 
-    ok(_has_dep(\@names, 'Fondation::Model::DBIx::Async'),       'DBIx::Async in dependencies');
-    ok(_has_dep(\@names, 'Fondation::MigrationDBIx'),            'MigrationDBIx in dependencies');
-    ok(_has_dep(\@names, 'Fondation::User'),                     'User in dependencies');
-    ok(_has_dep(\@names, 'Fondation::Auth'),                     'Auth in dependencies');
-    ok(_has_dep(\@names, 'Fondation::Layout::Bootstrap'),        'Layout::Bootstrap in dependencies');
-    ok(_has_dep(\@names, 'Fondation::User::UI::Bootstrap'),      'User::UI::Bootstrap in dependencies');
-    ok(_has_dep(\@names, 'Fondation::Asset'),                    'Asset in dependencies');
-    ok(_has_dep(\@names, 'Fondation::OpenAPI'),                  'OpenAPI in dependencies');
-    ok(_has_dep(\@names, 'Fondation::I18N'),                     'I18N in dependencies');
+    # Direct dependencies
+    ok($_loaded->('Fondation::Model::DBIx::Async'),   'DBIx::Async loaded');
+    ok($_loaded->('Fondation::MigrationDBIx'),          'MigrationDBIx loaded');
+    ok($_loaded->('Fondation::User'),                   'User loaded');
+    ok($_loaded->('Fondation::Auth'),                   'Auth loaded');
+    ok($_loaded->('Fondation::Group'),                  'Group loaded');
+    ok($_loaded->('Fondation::Layout::Bootstrap'),      'Layout::Bootstrap loaded');
+    ok($_loaded->('Fondation::User::UI::Bootstrap'),    'User::UI::Bootstrap loaded');
+    ok($_loaded->('Fondation::Group::UI::Bootstrap'),   'Group::UI::Bootstrap loaded');
+    ok($_loaded->('Fondation::Asset'),                  'Asset loaded');
+    ok($_loaded->('Fondation::OpenAPI'),                'OpenAPI loaded');
+    ok($_loaded->('Fondation::I18N'),                   'I18N loaded');
+    ok($_loaded->('Fondation::Devel'),                  'Devel loaded');
 };
 
 done_testing;
