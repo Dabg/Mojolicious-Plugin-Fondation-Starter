@@ -182,6 +182,9 @@ sub fondation_meta {
             'Fondation::Group::UI::Bootstrap',
             'Fondation::Perm::UI::Bootstrap',
 
+            # Before Auth to fond store
+            'Fondation::SessionStore',
+
             'Fondation::Authorization',
             'Fondation::Asset',
             'Fondation::I18N',
@@ -190,7 +193,6 @@ sub fondation_meta {
             'Fondation::Group',
             'Fondation::Perm',
             'Fondation::Devel',
-            'Fondation::Authorization',
             'Fondation::Menu',
             ],
         defaults => {
