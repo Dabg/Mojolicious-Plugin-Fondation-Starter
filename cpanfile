@@ -24,6 +24,7 @@ requires 'Mojolicious::Plugin::Fondation::Group::UI::Bootstrap'  => '0.01';
 requires 'Mojolicious::Plugin::Fondation::Perm'                  => '0.01';
 requires 'Mojolicious::Plugin::Fondation::Perm::UI::Bootstrap'   => '0.01';
 requires 'Mojolicious::Plugin::Fondation::Authorization'         => '0.01';
+requires 'Mojolicious::Plugin::Fondation::Menu'                  => '0.01';
 
 # Testing dependencies
 on test => sub {

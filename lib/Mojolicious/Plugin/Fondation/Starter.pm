@@ -191,6 +191,7 @@ sub fondation_meta {
             'Fondation::Perm',
             'Fondation::Devel',
             'Fondation::Authorization',
+            'Fondation::Menu',
             ],
         defaults => {
             fondation_clean => [
