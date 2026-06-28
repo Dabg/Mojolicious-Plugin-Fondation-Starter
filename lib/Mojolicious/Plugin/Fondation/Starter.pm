@@ -184,6 +184,7 @@ sub fondation_meta {
 
             # Before Auth to fond store
             'Fondation::SessionStore',
+            'Fondation::CSRF',
 
             'Fondation::Authorization',
             'Fondation::Asset',
